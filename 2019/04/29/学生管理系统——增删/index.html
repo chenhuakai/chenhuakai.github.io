@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我自横刀向天笑，去留肝胆两昆仑">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          学生管理系统——增删 - null
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/04/29/学生管理系统——增删/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+	<link rel="stylesheet" href="/css/w3.css">
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+    }
+   .post-heading{
+    padding:20px;
+    }
+  .person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.7;
+  }
+  .person:hover {
+    border-color: #f1f1f1;
+  }
+ 
+    .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+    }
+
+    .carousel-caption h3 {
+      color: #fff !important;
+    }
+
+</style>
+
+<header id="headerid" class="w3-indigo intro-header" style="position:relative;">
+    <!-- Signature -->
+	
+        <div class="container">
+            <div class=" row">
+			
+			<canvas id="particles-js-canvas" style="position:absolute;z-index:1;top:0px;left:0px;" width="100%" height="50%"></canvas>
+			
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" style="z-index:2;">
+                
+                    <div class="post-heading" style="padding:40px">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>学生管理系统——增删</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 陈小码 on
+                            2019-04-29
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+  
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">陈小码的小客栈</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Homepage</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><h3 id="H5-PHP-MYSQL的开发模式是十分流行的，小码认为，计算机专业的学生如果毕业以后想从事互联网行业的工作，那最好在学校里就能做出一些项目来，可以为学校活动做一些小软件小网站，也可以组团参加比赛，比如全国计算机设计大赛之类的，这样同学们在面试的时候绝对是有非常大的优势的，而H5-PHP-MYSQL的开发模式是最适合刚刚接触编程或者说互联网同学们拿来进军互联网开发的一套模式。今天小码就来带大家快速构建一个这样的所谓的学生管理系统。没有SQL语法基础的同学最好去补习一下，当然在后期的学习中，小码也会带大家学习MySQL的。这里呢我主要讲H5和PHP的部分。"><a href="#H5-PHP-MYSQL的开发模式是十分流行的，小码认为，计算机专业的学生如果毕业以后想从事互联网行业的工作，那最好在学校里就能做出一些项目来，可以为学校活动做一些小软件小网站，也可以组团参加比赛，比如全国计算机设计大赛之类的，这样同学们在面试的时候绝对是有非常大的优势的，而H5-PHP-MYSQL的开发模式是最适合刚刚接触编程或者说互联网同学们拿来进军互联网开发的一套模式。今天小码就来带大家快速构建一个这样的所谓的学生管理系统。没有SQL语法基础的同学最好去补习一下，当然在后期的学习中，小码也会带大家学习MySQL的。这里呢我主要讲H5和PHP的部分。" class="headerlink" title="H5+PHP+MYSQL的开发模式是十分流行的，小码认为，计算机专业的学生如果毕业以后想从事互联网行业的工作，那最好在学校里就能做出一些项目来，可以为学校活动做一些小软件小网站，也可以组团参加比赛，比如全国计算机设计大赛之类的，这样同学们在面试的时候绝对是有非常大的优势的，而H5+PHP+MYSQL的开发模式是最适合刚刚接触编程或者说互联网同学们拿来进军互联网开发的一套模式。今天小码就来带大家快速构建一个这样的所谓的学生管理系统。没有SQL语法基础的同学最好去补习一下，当然在后期的学习中，小码也会带大家学习MySQL的。这里呢我主要讲H5和PHP的部分。"></a>H5+PHP+MYSQL的开发模式是十分流行的，小码认为，计算机专业的学生如果毕业以后想从事互联网行业的工作，那最好在学校里就能做出一些项目来，可以为学校活动做一些小软件小网站，也可以组团参加比赛，比如全国计算机设计大赛之类的，这样同学们在面试的时候绝对是有非常大的优势的，而H5+PHP+MYSQL的开发模式是最适合刚刚接触编程或者说互联网同学们拿来进军互联网开发的一套模式。今天小码就来带大家快速构建一个这样的所谓的学生管理系统。没有SQL语法基础的同学最好去补习一下，当然在后期的学习中，小码也会带大家学习MySQL的。这里呢我主要讲H5和PHP的部分。</h3><a id="more"></a>
+<ul>
+<li><p>需求分析<br>1.首先我们快速用html构建一个table表</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>学生信息管理中心<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">#m&#123;</span></span><br><span class="line"><span class="undefined">margin-left: 455px;</span></span><br><span class="line"><span class="undefined">margin-top: 60px;</span></span><br><span class="line"><span class="undefined">display: none;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">function confirmDel(id)&#123;</span></span><br><span class="line"><span class="undefined">if(window.confirm("确认删除改学生信息吗?"))</span></span><br><span class="line"><span class="undefined">&#123;</span></span><br><span class="line"><span class="undefined">location.href="./delete.php?id="+id;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"text-align: center; padding-bottom: 10px;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>学生信息管理中心<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"./add.php"</span> <span class="attr">style</span>=<span class="string">"text-decoration: none;"</span>&gt;</span>添加学生<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">共有<span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"red"</span>&gt;</span><span class="tag">&lt;/<span class="name">font</span>&gt;</span>个学生</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">align</span>=<span class="string">"center"</span> <span class="attr">rules</span>=<span class="string">"all"</span> <span class="attr">cellpadding</span>=<span class="string">"5"</span><span class="attr">width</span>=<span class="string">"600px"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">bgcolor</span>=<span class="string">"#ccc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>编号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>性别<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>年龄<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>工资<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>操纵<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">style</span>=<span class="string">"text-decoration: none;"</span> <span class="attr">onclick</span>=<span class="string">"confirmDel()"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有前端基础的同学肯定对这段代码没有压力，那没有基础的同学不要着急。你只要知道这里核心构造出一个表格就行了。</p>
+</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">性别</th>
+<th style="text-align:center">年龄</th>
+<th style="text-align:center">工资</th>
+<th style="text-align:center">操纵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">阿信</td>
+<td style="text-align:center">阿信</td>
+<td style="text-align:center">阿信</td>
+<td style="text-align:center">阿信</td>
+<td style="text-align:center">阿信</td>
+<td style="text-align:center">阿信</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li>同学们肯定已经看到了我给删除a标签绑定了一个onclick()的单机相应函数，他的JavaScript代码我也在上面已经给出，我们通过window下的confirm弹窗来获取一个boolean用做If判断</li>
+<li>如果if判断为true 那就执行js代码块，我们通过location把id发送给delete.php后台程序来执行操作</li>
+<li>细心的同学肯定发现了confirmDel()内传的id值是什么呢。<blockquote>
+<p>这之前我要先引入一个PHP连接MySQL的公共PHP程序 </p>
+</blockquote>
+</li>
+</ul>
+<p>**来啊，上代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">conn.php</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  $db_host=<span class="string">"localhost"</span>;</span><br><span class="line">  $db_port=<span class="string">"3306"</span>;</span><br><span class="line">  $db_user=<span class="string">"root"</span>;</span><br><span class="line">  $db_pass=<span class="string">"123456"</span>;</span><br><span class="line">  $db_name=<span class="string">"stusys"</span>;</span><br><span class="line">  $charset=<span class="string">"utf8"</span>;</span><br><span class="line">  <span class="keyword">if</span>(!$link=@mysqli_connect($db_host.<span class="string">":"</span>.$db_port,$db_user,$db_pass))</span><br><span class="line">  &#123;</span><br><span class="line">  	<span class="keyword">echo</span> <span class="string">"&lt;h2&gt;连接服务器失败&lt;/h2&gt;"</span>;</span><br><span class="line">  	<span class="keyword">echo</span> <span class="string">"错误信息"</span>.mysqli_connect_error();</span><br><span class="line">  	<span class="keyword">die</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(!mysqli_select_db($link, $db_name))</span><br><span class="line">  &#123;</span><br><span class="line">  	<span class="keyword">echo</span> <span class="string">"连接数据库"</span>. $db_name.<span class="string">"失败"</span>;</span><br><span class="line">  	<span class="keyword">die</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  mysqli_set_charset($link,$charset);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>开发，我们要高效率开发，我们在以后的每段html页面中基本上都会引用这段PHP程序，这段PHP程序连接了MySQL的stusys库，这个库中我创建了一个学生表，表中主要包含了学生的id name age sex salary信息，id是自增主键。</li>
+</ul>
+<hr>
+<ul>
+<li>回到我们之前的html页面，我们来引入这段公共PHP程序，并且连接到该库中的 stu学生表 ，通过一个arrs[]数组来获取所有学生信息，这里注意，因为是引用公共PHP程序，所有这段PHP只能写在html标签前。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">"./conn.php"</span>);</span><br><span class="line">$sql=<span class="string">"SELECT * FROM stu ORDER BY id ASC"</span>;</span><br><span class="line">$result=mysqli_query($link,$sql);</span><br><span class="line">$arrs=mysqli_fetch_all($result,MYSQLI_ASSOC);</span><br><span class="line">$num=mysqli_num_rows($result);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>接下来我们就可以在html中嵌入PHP代码了(充分利用arrs[]数组)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>学生信息管理中心<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">#m&#123;</span></span><br><span class="line"><span class="undefined">margin-left: 455px;</span></span><br><span class="line"><span class="undefined">margin-top: 60px;</span></span><br><span class="line"><span class="undefined">display: none;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">function confirmDel(id)&#123;</span></span><br><span class="line"><span class="undefined">if(window.confirm("确认删除改学生信息吗?"))</span></span><br><span class="line"><span class="undefined">&#123;</span></span><br><span class="line"><span class="undefined">    location.href="./delete.php?id="+id;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">function confirmMod(id,name,sex,age,salary)</span></span><br><span class="line"><span class="undefined">&#123;</span></span><br><span class="line"><span class="undefined">if(window.confirm("确认修改学生信息吗?"))</span></span><br><span class="line"><span class="undefined">&#123;</span></span><br><span class="line"><span class="undefined">    location.href="./modify.php?id="+id+"&amp;name="+name+"&amp;sex="+sex+"&amp;age="+age+"&amp;salary="+salary;</span></span><br><span class="line"><span class="undefined">      document.getElementById("m").style.display="none";</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"text-align: center; padding-bottom: 10px;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>学生信息管理中心<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"./add.php"</span> <span class="attr">style</span>=<span class="string">"text-decoration: none;"</span>&gt;</span>添加学生<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">共有<span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"red"</span>&gt;</span><span class="php"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $num<span class="meta">?&gt;</span></span><span class="tag">&lt;/<span class="name">font</span>&gt;</span>个学生</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">align</span>=<span class="string">"center"</span> <span class="attr">rules</span>=<span class="string">"all"</span> <span class="attr">cellpadding</span>=<span class="string">"5"</span><span class="attr">width</span>=<span class="string">"600px"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">bgcolor</span>=<span class="string">"#ccc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>编号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>性别<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>年龄<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>工资<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span>操纵<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="php"><span class="meta">&lt;?php</span>  <span class="keyword">foreach</span>($arrs <span class="keyword">as</span> $arr)&#123;<span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="php"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $arr[<span class="string">'id'</span>]<span class="meta">?&gt;</span></span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="php"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $arr[<span class="string">'name'</span>]<span class="meta">?&gt;</span></span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="php"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $arr[<span class="string">'sex'</span>]<span class="meta">?&gt;</span></span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="php"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $arr[<span class="string">'age'</span>]<span class="meta">?&gt;</span></span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="php"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $arr[<span class="string">'salary'</span>]<span class="meta">?&gt;</span></span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">style</span>=<span class="string">"text-decoration: none;"</span> <span class="attr">onclick</span>=<span class="string">"confirmDel(&lt;?php echo $arr['id'] ?&gt;)"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="php"><span class="meta">&lt;?php</span> &#125;<span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样就知道confirmDel()传的id是哪来的吧，原来是数据库的学生表中信息被arrs[]获取，然后通过PHP的echo表达出来的。</p>
+</li>
+</ul>
+<hr>
+<p><em>敲黑板了！！！重中之重来了！</em></p>
+<ul>
+<li><p>上面我说了，我们通过location把id发送给delete.php后台程序来执行操作。现在我就要写delete.php程序的代码了，这才是后台核心啊。</p>
+<blockquote>
+<p>来啊，上代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">"./conn.php"</span>);<span class="meta">?&gt;</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">		&lt;title&gt;&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		<span class="meta">&lt;?php</span> </span><br><span class="line">			$id=$_GET[<span class="string">'id'</span>];</span><br><span class="line">$sql=<span class="string">"DELETE FROM stu WHERE id=$id"</span>;</span><br><span class="line"><span class="keyword">if</span>(mysqli_query($link,$sql))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span><span class="string">"&lt;h2&gt;删除执行成功&lt;/h2&gt;"</span>;</span><br><span class="line">	header(<span class="string">"refresh:3;url=./student.php"</span>);</span><br><span class="line">	<span class="keyword">die</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">echo</span><span class="string">"&lt;h2&gt;删除执行失败&lt;/h2&gt;"</span>;</span><br><span class="line">	header(<span class="string">"refresh:3;url=./student.php"</span>);</span><br><span class="line">	<span class="keyword">die</span>();</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">			<span class="meta">?&gt;</span></span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>值得一提的是,小码还是把PHP写在了html中，因为小码需要一些机制来表达一些提示信息。这里是小码的技术局限，不多陈述。</p>
+</li>
+<li>另外注意，我在开头还是引用了conn.php，因为要连接数据库吧。同学们有没有体会到其中一些奥妙没有？</li>
+</ul>
+<p><em>这样我们就完成了一个学校管理系统的删的操作。</em></p>
+<ul>
+<li>同学们可以把我的代码整合一下在自己的计算机里试一下。</li>
+<li>现在时间太晚了，晚上十一点半了，小码也该睡觉了。毕竟苦逼的大一小码明天早上还有大学物理课(悲哀)。</li>
+</ul>
+<blockquote>
+<p>学生管理系统的“增”的操作小码明天再来更新。同学们晚安。</p>
+</blockquote>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/04/28/大家好我是陈小码/" data-toggle="tooltip" data-placement="top" title="大家好我是陈小码">Next post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share" data-wechat-qrcode-helper align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">Tags</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://www.sumoon.com" target="_blank">ACE theme</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/kinggozhang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 陈小码 2019 
+                    <br>
+                    Powered by <a href="http://www.hexo.io">Hexo</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Theme by <a href="https://github.com/kinggozhang/hexo-theme-ace">ACE</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=kinggozhang&repo=hexo-theme-ace&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+	<script src="/js/particles.js"></script>
+	<script src="/js/particles_config.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/2019/04/29/学生管理系统——增删/index.html/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
