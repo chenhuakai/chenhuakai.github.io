@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我自横刀向天笑，去留肝胆两昆仑">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          PHP教程01 - null
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/05/02/PHP教程01/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+	<link rel="stylesheet" href="/css/w3.css">
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+    }
+   .post-heading{
+    padding:20px;
+    }
+  .person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.7;
+  }
+  .person:hover {
+    border-color: #f1f1f1;
+  }
+ 
+    .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+    }
+
+    .carousel-caption h3 {
+      color: #fff !important;
+    }
+
+</style>
+
+<header id="headerid" class="w3-indigo intro-header" style="position:relative;">
+    <!-- Signature -->
+	
+        <div class="container">
+            <div class=" row">
+			
+			<canvas id="particles-js-canvas" style="position:absolute;z-index:1;top:0px;left:0px;" width="100%" height="50%"></canvas>
+			
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" style="z-index:2;">
+                
+                    <div class="post-heading" style="padding:40px">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>PHP教程01</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 陈小码 on
+                            2019-05-02
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+  
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">陈小码的小客栈</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Homepage</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><h6 id="本来今天想更新MySQL的，然后去翻了一下一位学长的博客，看看他写的实在是好，很多博文都是真知灼见，而我还在纠结于语言。。。。。。然后小码还是决定多多更新一些PHP的博文。毕竟小码现在真的不是大牛，现在对PHP比较上心，就多多更新一下PHP啦。"><a href="#本来今天想更新MySQL的，然后去翻了一下一位学长的博客，看看他写的实在是好，很多博文都是真知灼见，而我还在纠结于语言。。。。。。然后小码还是决定多多更新一些PHP的博文。毕竟小码现在真的不是大牛，现在对PHP比较上心，就多多更新一下PHP啦。" class="headerlink" title="本来今天想更新MySQL的，然后去翻了一下一位学长的博客，看看他写的实在是好，很多博文都是真知灼见，而我还在纠结于语言。。。。。。然后小码还是决定多多更新一些PHP的博文。毕竟小码现在真的不是大牛，现在对PHP比较上心，就多多更新一下PHP啦。"></a>本来今天想更新MySQL的，然后去翻了一下一位学长的博客，看看他写的实在是好，很多博文都是真知灼见，而我还在纠结于语言。。。。。。然后小码还是决定多多更新一些PHP的博文。毕竟小码现在真的不是大牛，现在对PHP比较上心，就多多更新一下PHP啦。</h6><p>&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;</p>
+<h4 id="PHP-是什么"><a href="#PHP-是什么" class="headerlink" title="PHP 是什么"></a>PHP 是什么</h4><ul>
+<li>PHP（中文名：“超文本预处理器”）是一种通用开源脚本语言。语法吸收了C语言、Java和Perl的特点，利于学习，使用广泛，主要适用于Web开发领域.</li>
+</ul>
+<h4 id="PHP-可以干什么"><a href="#PHP-可以干什么" class="headerlink" title="PHP 可以干什么"></a>PHP 可以干什么</h4><ul>
+<li>PHP属于后起之秀，吸收了java和c以及perl等语言优点。</li>
+</ul>
+<ol>
+<li>PC端网站开发。60%全球互联网网站采用php技术，80%国内互联网网站使用php开发。这些网站包含购物网站，政府企业网站，QQ空间，论坛博客等等。</li>
+<li>移动端微网站开发—小程序。移动设备的普及为移动互联网的快速发展奠定了基础。手机淘宝网站，手机京东网站等等， 微信公众号应用中的微网站。 将来微网站、公众号和小程序肯定会取代APP的地位。我们离不开手机，手机离不开互联网，互联网离不开网站，小程序，网站离不开PHP。</li>
+<li>APP后台开发。APP就像传统电脑上的CS（Client/Server）软件一样，前几年我们做的最多的就是将客户端的软件变成浏览器上的软件，不用安装客户端打开浏览器就可以使用该软件，人们用着方便，并且也没有客户端也不需要人们来维护客户端程序。现在公司为了节约成本直接做手机网站不再做APP。</li>
+<li>微信小程序取代APP，这句话不是我说的，这是事实。如果我是企业老总，我肯定直接B/S，节约成本，实在产品淘汰，就换手做其他产品，根本不想多花成本去维护，更新升级实在太快啦。也不心疼。小程序不容小觑啊，是小程序就是未来，所以，我多bb一句，好好去学JavaScript，好好去学！通过微信小程序可以做出适合不同手机设备的移动应用。 我们不再开发APP了，那么微信官方推荐后台开发语言为PHP。 因为微信官方推出的官方Demo中只有PHP。</li>
+</ol>
+<hr>
+<h3 id="开始PHP语法入门"><a href="#开始PHP语法入门" class="headerlink" title="开始PHP语法入门"></a>开始PHP语法入门</h3><h4 id="PHP语法"><a href="#PHP语法" class="headerlink" title="PHP语法"></a>PHP语法</h4><ul>
+<li>PHP放在哪里？</li>
+<li>PHP可以放在文档中的任何位置。PHP以&lt;?php开始，以?&gt;结束</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>        </span><br><span class="line"><span class="comment">// PHP天下第一        </span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>PHP 文件的默认文件扩展名是 “.php”。 比如add.php,conn..php,index.php.PHP 文件通常包含HTML和PHP代码。</li>
+<li>和大部分语言一样，PHP以;为分隔符。来看PHP的基本上都有c系列语言的基础，我不多赘述分隔符;的概念。</li>
+<li>PHP注释中，//为单行注释，/<em>PHP天下第一啊啊啊</em>/为多行注释。这个也和很多一样啊。来看一看代码<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// PHP一只脚也是天下第一</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">PHP </span></span><br><span class="line"><span class="comment">就是</span></span><br><span class="line"><span class="comment">辣么</span></span><br><span class="line"><span class="comment">牛掰</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="PHP变量"><a href="#PHP变量" class="headerlink" title="PHP变量"></a>PHP变量</h4><ol>
+<li>变量规则</li>
+</ol>
+<ul>
+<li>变量以$座位前缀，后面跟着变量的名称，如$user</li>
+<li>变量名必须以字母或者下划线字符开始,包涵字母数字下划线</li>
+<li>变量名中不能有空格，万万注意</li>
+<li>变量名是严格区分大小写的。$user和$USER是不一样的<blockquote>
+<p>来示范一下，创建PHP变量</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$txt=<span class="string">"PHP天下第一"</span>; </span><br><span class="line">$x=<span class="number">8888</span>; </span><br><span class="line">$y=<span class="number">888.9999</span>; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>PHP是一门弱类型语言，在声明变量的时候不需要声明数据类型，它根据变量的值自动转换数据类型，这个很方便。</p>
+<ol start="2">
+<li>变量作用域</li>
+</ol>
+<ul>
+<li>PHP四种不同作用域local global static parameter</li>
+<li>在函数外定义的的变量拥有全局作用域，全局可使用，若要在函数内引用全局变量，需要使用 global 关键字。在函数内拥有局部作用域，可以在函数内部被访问。<br>一段代码切身体会一下<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$x=<span class="number">888</span>; <span class="comment">// 全局变量 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myPhpTest</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">$y=<span class="number">999</span>; <span class="comment">// 局部变量 </span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"x =: $x"</span>; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"y=: $y"</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span></span><br><span class="line">myPhpTest() </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"x =: $x"</span>; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"y=: $y"</span>; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>看一下运行结果<br><strong>x=<br>y=999<br>x=888<br>y=</strong></li>
+<li><p>global 关键字</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$x=<span class="number">10</span>; </span><br><span class="line">$y=<span class="number">20</span>; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myPhpTest</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"><span class="keyword">global</span> $x,$y; </span><br><span class="line">$y=$x+$y; </span><br><span class="line"><span class="keyword">echo</span> $y;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">myPhpTest()  <span class="comment">// 输出 30</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP中将所有全局变量存储在$GLOBALS[index]数组中。index是保存变量的名称。$GLOBALS[index]数组可以在函数内部访问，也可以更新全局变量。通过这个方式改写一下上面的代码</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$x=<span class="number">10</span>; </span><br><span class="line">$y=<span class="number">20</span>; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myPhpTest</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">$GLOBALS[<span class="string">'y'</span>]=$GLOBALS[<span class="string">'x'</span>]+$GLOBALS[<span class="string">'y'</span>];</span><br><span class="line"><span class="keyword">echo</span> $y;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">myPhpTest()  <span class="comment">// 输出 30</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Static作用域,在第一次声明变量时使用 static 关键字可以使变量永远不被初始化，永远保留之前的操作结果。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myPhpTest</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"><span class="keyword">static</span> $x=<span class="number">1</span>; </span><br><span class="line"><span class="keyword">echo</span> $x; </span><br><span class="line">$x=$x+<span class="number">1</span>; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">myPhpTest();<span class="comment">//输出 1  </span></span><br><span class="line">myPhpTest(); <span class="comment">//输出 2 </span></span><br><span class="line">myPhpTest(); <span class="comment">//输出 3</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>参数作用域 参数通过调用代码将值传递给函数做为局部变量。是函数声明的一部分<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myPhpTest</span><span class="params">($x)</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"><span class="keyword">echo</span> $x; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">myPhpTest(<span class="number">90</span>);<span class="comment">//输出 90 </span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="PHP的输出"><a href="#PHP的输出" class="headerlink" title="PHP的输出"></a>PHP的输出</h4><ul>
+<li>我们学c语言的时候，老师教我们的第一行代码就是printf(“Hello World”);那我们的PHP中的输出语句是什么呢。</li>
+</ul>
+<ol>
+<li>PHP echo 语句</li>
+</ol>
+<ul>
+<li>太简单了，直接上代码让你们体会<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2&gt;PHP天下第一&lt;/h2&gt;"</span>;<span class="comment">//html标签通过echo输出时候讲直接被解析成HTML</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"陈小码男神&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"陈小码好帅一男的。&lt;br&gt;"</span>;<span class="comment">//&lt;br&gt;会被解析出来，直接变成换行效果</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"你最喜欢"</span>, <span class="string">" 哪种"</span>, <span class="string">" 编程"</span>, <span class="string">" 语言"</span>, <span class="string">" ？"</span>;</span><br><span class="line">$txt1=<span class="string">"学习PHP我很快乐"</span>;</span><br><span class="line">$txt2=<span class="string">"学习Java也很快乐"</span>;</span><br><span class="line">$animals=<span class="keyword">array</span>(<span class="string">"cat"</span>,<span class="string">"dog"</span>,<span class="string">"snake"</span>);</span><br><span class="line"><span class="keyword">echo</span> $txt1;<span class="comment">//输出 学习PHP我很快乐</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;<span class="comment">//换行效果</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"小明觉得$txt2  "</span>;<span class="comment">//输出 小明觉得学习Java也很快乐</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"我的宠物是 &#123;$animals[0]&#125;"</span>;<span class="comment">//输出 我的宠物是cat</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2.PHP print语句和echo基本是一样的，他们的区别在于</p>
+<ul>
+<li>echo可以输出一个或多个字符串，print 只允许输出一个字符串</li>
+<li>echo输出的速度比print快，echo没有返回值，print有返回值1</li>
+<li><p>print()打印一个值（它的参数），如果字符串成功显示则返回true，否则返回false</p>
+<h4 id="其他都一样"><a href="#其他都一样" class="headerlink" title="其他都一样"></a>其他都一样</h4><p>3.PHP print_r 语句</p>
+</li>
+<li>和echo类似</li>
+<li>print_r显示关于一个变量的易于理解的信息,如果是string\integer\float，将打印变量值本身。</li>
+<li><p>如果是array，将会按照某种格式显示键和元素。对象就像数组一样。</p>
+<blockquote>
+<p>演示一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a=<span class="string">"22"</span>;</span><br><span class="line">$animals=<span class="keyword">array</span>(<span class="string">"cat"</span>,<span class="string">"dog"</span>,<span class="string">"snake"</span>);</span><br><span class="line"></span><br><span class="line">print_r($a);<span class="comment">//输出 22</span></span><br><span class="line">print_r($animals);<span class="comment">// 输出 Array ( [0] =&gt; cat [1] =&gt; dog [2] =&gt; animal)</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h6 id="小码已经和大家入门学习了PHP的语法，变量，和数据类型三块了。基础的东西不难，要多练练，小码和大家下篇小博文见。最近我都将更新PHP教程这个系列。小码的一切博文都是小码的原创，当然小码听从前辈的意见支持开源，小码博文里的代码尽管拿去学习，别客气哈。拜拜，祝大家五一小长假玩的愉快"><a href="#小码已经和大家入门学习了PHP的语法，变量，和数据类型三块了。基础的东西不难，要多练练，小码和大家下篇小博文见。最近我都将更新PHP教程这个系列。小码的一切博文都是小码的原创，当然小码听从前辈的意见支持开源，小码博文里的代码尽管拿去学习，别客气哈。拜拜，祝大家五一小长假玩的愉快" class="headerlink" title="小码已经和大家入门学习了PHP的语法，变量，和数据类型三块了。基础的东西不难，要多练练，小码和大家下篇小博文见。最近我都将更新PHP教程这个系列。小码的一切博文都是小码的原创，当然小码听从前辈的意见支持开源，小码博文里的代码尽管拿去学习，别客气哈。拜拜，祝大家五一小长假玩的愉快~~~"></a>小码已经和大家入门学习了PHP的语法，变量，和数据类型三块了。基础的东西不难，要多练练，小码和大家下篇小博文见。最近我都将更新PHP教程这个系列。小码的一切博文都是小码的原创，当然小码听从前辈的意见支持开源，小码博文里的代码尽管拿去学习，别客气哈。拜拜，祝大家五一小长假玩的愉快~~~</h6>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/04/30/学生管理系统——增删-完善/" data-toggle="tooltip" data-placement="top" title="学生管理系统——增删(完善)">Next post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share" data-wechat-qrcode-helper align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">Tags</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://www.sumoon.com" target="_blank">ACE theme</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/kinggozhang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 陈小码 2019 
+                    <br>
+                    Powered by <a href="http://www.hexo.io">Hexo</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Theme by <a href="https://github.com/kinggozhang/hexo-theme-ace">ACE</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=kinggozhang&repo=hexo-theme-ace&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+	<script src="/js/particles.js"></script>
+	<script src="/js/particles_config.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/2019/05/02/PHP教程01/index.html/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
