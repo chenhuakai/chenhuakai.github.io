@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我自横刀向天笑，去留肝胆两昆仑">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          PHP教程02 - null
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/05/03/PHP教程02/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+	<link rel="stylesheet" href="/css/w3.css">
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+    }
+   .post-heading{
+    padding:20px;
+    }
+  .person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.7;
+  }
+  .person:hover {
+    border-color: #f1f1f1;
+  }
+ 
+    .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+    }
+
+    .carousel-caption h3 {
+      color: #fff !important;
+    }
+
+</style>
+
+<header id="headerid" class="w3-indigo intro-header" style="position:relative;">
+    <!-- Signature -->
+	
+        <div class="container">
+            <div class=" row">
+			
+			<canvas id="particles-js-canvas" style="position:absolute;z-index:1;top:0px;left:0px;" width="100%" height="50%"></canvas>
+			
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" style="z-index:2;">
+                
+                    <div class="post-heading" style="padding:40px">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>PHP教程02</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 陈小码 on
+                            2019-05-03
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+  
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">陈小码的小客栈</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Homepage</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><h6 id="更新PHP的教程绝对是一件利国利民的好事哈，小码只写干货，不写废话"><a href="#更新PHP的教程绝对是一件利国利民的好事哈，小码只写干货，不写废话" class="headerlink" title="更新PHP的教程绝对是一件利国利民的好事哈，小码只写干货，不写废话"></a>更新PHP的教程绝对是一件利国利民的好事哈，小码只写干货，不写废话</h6><p>&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;</p>
+<h4 id="PHP的EOF-heredoc-使用说明"><a href="#PHP的EOF-heredoc-使用说明" class="headerlink" title="PHP的EOF(heredoc) 使用说明"></a>PHP的EOF(heredoc) 使用说明</h4><ol>
+<li>必须后接分号，否则编译不通过</li>
+<li>EOF只是我们习惯的写法，其实无论什么字符都可以，只要保证前后一样即可，但不能出现中文字符的。还有常用的有EOT EOD 。</li>
+<li>结束标识符必须独占一行比如:<br><strong> echo&lt;&lt;&lt;EOF<br>王小明学习PHP，<br>万丈龙我学渣，<br>桐生战兔学霸。<br>EOF;</strong></li>
+<li>开始标识可以带引号也可以不带，但是要注意，如果带了引号，双引号内可以解析变量，单引号内不会解析变量或者转义字符。即使需要对内容内嵌时，也不用加转义字符。它本身能对单双引号转义。</li>
+</ol>
+<ul>
+<li>给大家看一段代码<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$name=<span class="string">"变量会被解析"</span>;</span><br><span class="line">$a=<span class="string">&lt;&lt;&lt;EOF</span></span><br><span class="line"><span class="string"><span class="subst">$name</span>&lt;br&gt;&lt;a&gt;html格式会被解析&lt;/a&gt;&lt;br/&gt;双引号和Html格式外的其他内容都不会被解析</span></span><br><span class="line"><span class="string">EOF;//结束符独立一行，前后不能留空格</span></span><br><span class="line"><span class="string">echo <span class="subst">$a</span>;</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>运行结果:<br><strong>变量名会被解析<br>html格式会被解析(这行有一个带下划线的超链接效果)<br>双引号和Html格式外的其他内容都不会被解析</strong></p>
+<ul>
+<li>双引号外所有被排列好的格式都会被保留,但是双引号内会保留转义符的转义效果,比如table:\t和换行：\n下一行</li>
+</ul>
+<h4 id="PHP字符串"><a href="#PHP字符串" class="headerlink" title="PHP字符串"></a>PHP字符串</h4><ol>
+<li>字符串变量，用于包含一段字符的变量。好比字符是一个字母，字符串是一个很长的单词。我们创建一个名为txt的字符串变量，赋值后shuchu<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$txt=<span class="string">"RABIT TANk, BEST MATCH!"</span>; </span><br><span class="line"><span class="keyword">echo</span> $txt; <span class="comment">// 输出 RABIT TANK, BEST MATCH! </span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>字符串里的格式会被保留，因为空格也算是一个字符。</li>
+</ul>
+<ol start="2">
+<li>并置运算符，我们在如果想把两个字符串变量在一行输出语句中输出，就用并置运算符(.)连接两个字符串变量。</li>
+</ol>
+<ul>
+<li>一段代码一看就明白怎么用了<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$txt1=<span class="string">"DECADE"</span>; </span><br><span class="line">$txt2=<span class="string">"从不吃瘪"</span>;</span><br><span class="line">$txt3=<span class="string">"万丈龙我"</span>;</span><br><span class="line">$txt4=<span class="string">"天天吃瘪"</span>;</span><br><span class="line"><span class="keyword">echo</span> $txt1 . <span class="string">"他"</span> . $txt2.<span class="string">"&lt;br&gt;"</span>; <span class="comment">//输出 DECADE他从不吃瘪</span></span><br><span class="line"><span class="keyword">echo</span> $txt1 . <span class="string">" "</span> . $txt2; <span class="comment">//输出 万丈龙我 天天吃瘪</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3.PHP字符函数，PHP中的字符函数是非常多的，小码介绍常用的几个</p>
+<ul>
+<li><p>PHP strlen() 函数,strlen()函数返回字一个值，这个值就是这个字符串的字符数。一段代码一看就懂。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">echo</span> strlen(<span class="string">"Hello world!"</span>); <span class="comment">// 输出 12    </span></span><br><span class="line"><span class="comment">//别忘了空格也是一个字符</span></span><br><span class="line">$a=<span class="string">"BUILD"</span></span><br><span class="line"><span class="keyword">echo</span> strlen($a);<span class="comment">// 输出 5</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP strpos()函数,用于查找字符串中某个指定的字符或文本第一次出现的位置的索引，语法为：strpos(“被查找的字符串”,”要查找的字符”)   如果找得到，该函数返回第一次出现的索引，如果找不到就返回FALSE。来段代码体会一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">echo</span> strpos(<span class="string">"Hello world!"</span>,<span class="string">"world"</span>); <span class="comment">//输出 6</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP str_word_count()函数返回字符串中单词的个数，直接上代码理解</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> str_word_count(<span class="string">"Hello world!"</span>); <span class="comment">// 输出 2</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP strrev() 函数反转字符串,把字符原本的输出顺序前后倒换，直接上代码理解</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> strrev(<span class="string">"Hello world!"</span>); <span class="comment">// 输出 !dlrow olleH</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP str_replace()函数用一些字符串替换字符串中的另一些字符。语法:str_replace(“字符串中原本存在的一些字符”, “替换的新字符”, “被操作的字符串”);上代码理解一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> str_replace(<span class="string">"陈小码"</span>, <span class="string">"江南"</span>, <span class="string">"极客江南"</span>); <span class="comment">// 输出 极客陈小码</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这些在工作中基本够用了，如果还有一些生僻的函数需要用到，可以立马去网上找一下PHP String参考手册，互联网时代很方便的哈。</p>
+</blockquote>
+<h4 id="PHP常量"><a href="#PHP常量" class="headerlink" title="PHP常量"></a>PHP常量</h4><ol>
+<li>常量类似变量,但是常量一旦被定义就不能被更改撤销。在PHP中常量贯穿整个脚本，作用域为全局。命名规则和变量一样，但是没有$开头</li>
+<li>设置PHP常量，语法:define(“常量名”，”常量值”，true/false),第三个参数是定义是否对大小写敏感，false是敏感，true是敏感，如果不写第三个参数则默认为false敏感</li>
+</ol>
+<ul>
+<li><p>敏感举例</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(<span class="string">"AAA"</span>, <span class="string">"DECADE"</span>);</span><br><span class="line"><span class="keyword">echo</span> AAA;<span class="comment">//输出 DECADE</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不敏感举例</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(<span class="string">"AAA"</span>, <span class="string">"DECADE"</span>);</span><br><span class="line"><span class="keyword">echo</span> aAa;<span class="comment">//输出 DECADE</span></span><br><span class="line"><span class="keyword">echo</span> aaa;<span class="comment">//输出 DECADE</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP常量是全局，感受一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(<span class="string">"AAA"</span>, <span class="string">"DECADE"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">echo</span> AAA;</span><br><span class="line">&#125; </span><br><span class="line">test(); <span class="comment">//运行结果: 输出了 DECADE</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="PHP运算符"><a href="#PHP运算符" class="headerlink" title="PHP运算符"></a>PHP运算符</h4><h6 id="关于PHP运算符我想说，所有语言的运算符规则都一样。小码只写有用的干货，这我就不提啦"><a href="#关于PHP运算符我想说，所有语言的运算符规则都一样。小码只写有用的干货，这我就不提啦" class="headerlink" title="关于PHP运算符我想说，所有语言的运算符规则都一样。小码只写有用的干货，这我就不提啦"></a>关于PHP运算符我想说，所有语言的运算符规则都一样。小码只写有用的干货，这我就不提啦</h6><h4 id="PHP的if…else-switch-while-语句都和其他语言的一毛一样的哈，所有语言都一毛一样的哈，就不多说了。"><a href="#PHP的if…else-switch-while-语句都和其他语言的一毛一样的哈，所有语言都一毛一样的哈，就不多说了。" class="headerlink" title="PHP的if…else switch while 语句都和其他语言的一毛一样的哈，所有语言都一毛一样的哈，就不多说了。"></a>PHP的if…else switch while 语句都和其他语言的一毛一样的哈，所有语言都一毛一样的哈，就不多说了。</h4><h4 id="PHP-for-循环"><a href="#PHP-for-循环" class="headerlink" title="PHP for()循环"></a>PHP for()循环</h4><ul>
+<li>for()循环和其他语言的for()循环也是一样的，这里小码就着重写一下foreach 循环，语法:<br><strong>foreach($array as $value) {<br>啦啦啦啦啦;<br>啦啦啦啦啦;<br>}</strong></li>
+<li><p>每次迭代中，当前数组元素会赋值给$value,然后指针下移一个,$array就是给定需要循环的数组。一直到循环结束，指针指到最后一个。上代码理解一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$Kamen Ride = <span class="keyword">array</span>(<span class="string">"Wizard"</span>,<span class="string">"Ghost"</span>,<span class="string">"Ex-Aid"</span>,<span class="string">"Zi-O"</span>); </span><br><span class="line"><span class="keyword">foreach</span> ($Kamen <span class="keyword">as</span> $value) &#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"$value &lt;br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出结果:<br><strong>Wizard<br>Ghost<br>Ex-Aid<br>Zi-O</strong></p>
+<blockquote>
+<p>$Kamen = array(“Wizard”,”Ghost”,”Ex-Aid”,”Zi-O”);这行代码创建并且初始化了一行数组。 </p>
+</blockquote>
+<h4 id="PHP-数组"><a href="#PHP-数组" class="headerlink" title="PHP 数组"></a>PHP 数组</h4></li>
+</ul>
+<ol>
+<li>什么是数组？数组是一个能在单个变量中存储多个值的特殊变量。是多个变量的集合。存储方便。PHP的数组都是键值对。</li>
+<li>创建数组</li>
+</ol>
+<ul>
+<li>数值数组。数值数组有两种<br>##第一种自动分配id键##<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen= <span class="keyword">array</span>(<span class="string">"Wizard"</span>,<span class="string">"Ghost"</span>,<span class="string">"Ex-Aid"</span>,<span class="string">"Zi-O"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##第二种手动分配id键##<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen[<span class="number">0</span>]=<span class="string">"Wizard"</span>;</span><br><span class="line">$Kamen[<span class="number">1</span>]=<span class="string">"Ghost"</span>;</span><br><span class="line">$Kamen[<span class="number">2</span>]=<span class="string">"Ex-Aid"</span>;</span><br><span class="line">$Kamen[<span class="number">3</span>]=<span class="string">"Zi-O"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>关联数组。它和数值数组不同的是，关联数组指定键，而不是01234的id。相应的也有两种创建方式<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen = <span class="keyword">array</span>(<span class="string">"法爷"</span>=&gt;<span class="string">"Wizard"</span>,<span class="string">"灵骑"</span>=&gt;<span class="string">"Ghost"</span>,<span class="string">"</span></span><br><span class="line"><span class="string">宝生永梦"</span>=&gt;<span class="string">"Ex-Aid"</span>,<span class="string">"时王"</span>=&gt;<span class="string">"Zi-O"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen[<span class="string">'法爷'</span>]=<span class="string">"Wizard"</span>;</span><br><span class="line">$Kamen[<span class="string">'灵骑'</span>]=<span class="string">"Ghost"</span>;</span><br><span class="line">$Kamen[<span class="string">'宝生永梦'</span>]=<span class="string">"Ex-Aid"</span>;</span><br><span class="line">$Kamen[<span class="string">'时王'</span>]=<span class="string">"Zi-O"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>count()函数获取数组的长度</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen= <span class="keyword">array</span>(<span class="string">"Wizard"</span>,<span class="string">"Ghost"</span>,<span class="string">"Ex-Aid"</span>,<span class="string">"Zi-O"</span>);</span><br><span class="line"><span class="keyword">echo</span> count($Kamen); <span class="comment">//输出 4</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历数值数组</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen= <span class="keyword">array</span>(<span class="string">"Wizard"</span>,<span class="string">"Ghost"</span>,<span class="string">"Ex-Aid"</span>,<span class="string">"Zi-O"</span>);</span><br><span class="line">$length=count($Kamen);</span><br><span class="line"><span class="keyword">for</span>($x=<span class="number">0</span>;$x&lt;length;$x++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">echo</span> Kamen[$x];</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出结果:<br><strong>Wizard<br>Ghost<br>Ex-Aid<br>Zi-O</strong></p>
+</li>
+<li><p>遍历关联数组(其实上面已经写过了)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$Kamen = <span class="keyword">array</span>(<span class="string">"Wizard"</span>,<span class="string">"Ghost"</span>,<span class="string">"Ex-Aid"</span>,<span class="string">"Zi-O"</span>); </span><br><span class="line"><span class="keyword">foreach</span> ($Kamen <span class="keyword">as</span> $value) &#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"$value &lt;br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出结果:<br><strong>Wizard<br>Ghost<br>Ex-Aid<br>Zi-O</strong></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>我们可以在脚本中使用指定的关联数组的键<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen = <span class="keyword">array</span>(<span class="string">"法爷"</span>=&gt;<span class="string">"Wizard"</span>,<span class="string">"灵骑"</span>=&gt;<span class="string">"Ghost"</span>,<span class="string">"</span></span><br><span class="line"><span class="string">宝生永梦"</span>=&gt;<span class="string">"Ex-Aid"</span>,<span class="string">"时王"</span>=&gt;<span class="string">"Zi-O"</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"法爷变身"</span>.$Kamen[<span class="string">'法爷'</span>]; <span class="comment">//输出 法爷变身Wizard</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h6 id="今天小码和大家学习了PHP的EOF、PHP字符串、PHP常量、PHP-for-循环、PHP数组这几个内容，同学们多多练习，下个博文见拜拜-逢魔之日即将到来，本骑士也要去拯救世界了呢！！"><a href="#今天小码和大家学习了PHP的EOF、PHP字符串、PHP常量、PHP-for-循环、PHP数组这几个内容，同学们多多练习，下个博文见拜拜-逢魔之日即将到来，本骑士也要去拯救世界了呢！！" class="headerlink" title="今天小码和大家学习了PHP的EOF、PHP字符串、PHP常量、PHP for()循环、PHP数组这几个内容，同学们多多练习，下个博文见拜拜~~~~逢魔之日即将到来，本骑士也要去拯救世界了呢！！"></a>今天小码和大家学习了PHP的EOF、PHP字符串、PHP常量、PHP for()循环、PHP数组这几个内容，同学们多多练习，下个博文见拜拜~~~~逢魔之日即将到来，本骑士也要去拯救世界了呢！！</h6>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/05/02/PHP教程01/" data-toggle="tooltip" data-placement="top" title="PHP教程01">Next post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share" data-wechat-qrcode-helper align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">Tags</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://www.sumoon.com" target="_blank">ACE theme</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/kinggozhang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 陈小码 2019 
+                    <br>
+                    Powered by <a href="http://www.hexo.io">Hexo</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Theme by <a href="https://github.com/kinggozhang/hexo-theme-ace">ACE</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=kinggozhang&repo=hexo-theme-ace&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+	<script src="/js/particles.js"></script>
+	<script src="/js/particles_config.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/2019/05/03/PHP教程02/index.html/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
