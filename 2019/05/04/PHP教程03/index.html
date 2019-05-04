@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我自横刀向天笑，去留肝胆两昆仑">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          PHP教程03 - null
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/05/04/PHP教程03/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+	<link rel="stylesheet" href="/css/w3.css">
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+    }
+   .post-heading{
+    padding:20px;
+    }
+  .person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.7;
+  }
+  .person:hover {
+    border-color: #f1f1f1;
+  }
+ 
+    .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+    }
+
+    .carousel-caption h3 {
+      color: #fff !important;
+    }
+
+</style>
+
+<header id="headerid" class="w3-indigo intro-header" style="position:relative;">
+    <!-- Signature -->
+	
+        <div class="container">
+            <div class=" row">
+			
+			<canvas id="particles-js-canvas" style="position:absolute;z-index:1;top:0px;left:0px;" width="100%" height="50%"></canvas>
+			
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" style="z-index:2;">
+                
+                    <div class="post-heading" style="padding:40px">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>PHP教程03</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 陈小码 on
+                            2019-05-04
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+  
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">陈小码的小客栈</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><p>&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;</p>
+<h4 id="PHP数组排序"><a href="#PHP数组排序" class="headerlink" title="PHP数组排序"></a>PHP数组排序</h4><ol>
+<li>sort() 对数组进行升序排列<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen= <span class="keyword">array</span>(<span class="string">"Wizard"</span>,<span class="string">"Ghost"</span>,<span class="string">"Ex-Aid"</span>,<span class="string">"Zi-O"</span>);</span><br><span class="line">sort($Kamen);</span><br><span class="line">print_r($Kamen);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>运行结果:<br><strong>Array ( [0] =&gt; Ex-Aid [1] =&gt;Ghost [2] =&gt; Wizard[3]=&gt;Zi-O)</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$num=<span class="keyword">array</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">97</span>,<span class="number">1</span>,<span class="number">11</span>);  </span><br><span class="line">sort($num);  </span><br><span class="line">print_r($num);  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行结果:<br><strong>Array ( [0] =&gt; 1 [1] =&gt; 4 [2] =&gt; 5 [3] =&gt; 11 [4] =&gt; 97 )</strong></li>
+</ul>
+<ol start="2">
+<li>rsort() 对数组进行降序排列<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$Kamen= <span class="keyword">array</span>(<span class="string">"Wizard"</span>,<span class="string">"Ghost"</span>,<span class="string">"Ex-Aid"</span>,<span class="string">"Zi-O"</span>);</span><br><span class="line">rsort($Kamen);</span><br><span class="line">print_r($Kamen);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>运行结果:<br><strong>Array ( [0] =&gt;Zi-O  [1] =&gt;Wizard [2] =&gt; Ghost[3]=&gt;Ex-Aid)</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$num=<span class="keyword">array</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">97</span>,<span class="number">1</span>,<span class="number">11</span>);  </span><br><span class="line">rsort($num);  </span><br><span class="line">print_r($num);  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行结果:<br><strong>Array ( [0] =&gt; 97 [1] =&gt;11 [2] =&gt; 5 [3] =&gt;4 [4] =&gt;1 )</strong></li>
+</ul>
+<p>3 asort()是根据关联数组的值，对数组进行升序排列，ksort()是根据关联数组的键，对数组进行升序排列放在一起做个比较<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$age=<span class="keyword">array</span>(<span class="string">"Wizard"</span>=&gt;<span class="string">"28"</span>,<span class="string">"Ghost"</span>=&gt;<span class="string">"32"</span>,<span class="string">"Zi-O"</span>=&gt;<span class="string">"19"</span>);</span><br><span class="line">asort($age);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>运行结果:<br><strong>Array ( [Zi-O]=&gt;19 [Wizard]=&gt;28 [Ghost] =&gt;32)</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$age=<span class="keyword">array</span>(<span class="string">"Wizard"</span>=&gt;<span class="string">"28"</span>,<span class="string">"Ghost"</span>=&gt;<span class="string">"32"</span>,<span class="string">"Zi-O"</span>=&gt;<span class="string">"19"</span>);</span><br><span class="line">ksort($age);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行结果:<br><strong>Array ( [Ghost] =&gt;32[Wizard]=&gt;28 [Zi-O]=&gt;19 )</strong></li>
+</ul>
+<ol start="4">
+<li>arsort()根据数组的值，对数组进行降序排列 krsort() - 根据数组的键，对数组进行降序排列。没什么好说的和上面类似的用法<blockquote>
+<p>总结:</p>
+<blockquote>
+<p>sort()对数组进行升序排列<br>rsort()对数组进行降序排列<br>asort()根据关联数组的值，对数组进行升序排列<br>ksort()根据关联数组的键，对数组进行升序排列<br>arsort()根据关联数组的值，对数组进行降序排列<br>krsort()根据关联数组的键，对数组进行降序排列<br>原始sort()就是升序排列，r降序，a根据关联数组的值，k根据关联数组的键</p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<h4 id="PHP超级全局变量"><a href="#PHP超级全局变量" class="headerlink" title="PHP超级全局变量"></a>PHP超级全局变量</h4><ul>
+<li>超级全局变量在一个脚本的全部作用域中都可用。不需要特别说明，就可以在函数及类中使用。<blockquote>
+<p>常见的几种:</p>
+<blockquote>
+<p>$GLOBALS<br>$_SERVER<br>$_REQUEST<br>$_POST<br>$_GET<br>$_FILES<br>$_ENV<br>$_COOKIE<br>$_SESSION</p>
+</blockquote>
+</blockquote>
+</li>
+<li>我们来介绍几种</li>
+</ul>
+<ol>
+<li><p>PHP $GLOBALS，之前已经介绍过。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$x=<span class="number">10</span>; </span><br><span class="line">$y=<span class="number">20</span>; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myPhpTest</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">$GLOBALS[<span class="string">'y'</span>]=$GLOBALS[<span class="string">'x'</span>]+$GLOBALS[<span class="string">'y'</span>];</span><br><span class="line"><span class="keyword">echo</span> $y;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">myPhpTest()  <span class="comment">// 输出 30</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP $_SERVER 包含头信息(header)、路径(path)、脚本位置(script locations)等等信息。由 Web 服务器创建。不保证每个服务器都提供全部项目；服务器可能会忽略一些，或提供了没有在这里列举出来的项目。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'PHP_SELF'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'SERVER_NAME'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'HTTP_HOST'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'HTTP_REFERER'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'SCRIPT_NAME'</span>];</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>具体作用在后面的章节里会介绍</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">元素代码</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$_SERVER[‘PHP_SELF’]</td>
+<td style="text-align:center">当前执行脚本的文件名,与document root有关。<a href="http://chenxiaoma.com/teach03.php/foo.bar" target="_blank" rel="noopener">http://chenxiaoma.com/teach03.php/foo.bar</a> 的脚本中使用 $_SERVER[‘PHP_SELF’] 将得到/teach03.php/foo.bar</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘GATEWAY_INTERFACE’]</td>
+<td style="text-align:center">服务器使用的 CGI 规范的版本；例如，”CGI/1.1”。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SERVER_ADDR’]</td>
+<td style="text-align:center">当前运行脚本所在的服务器的 IP 地址。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SERVER_NAME’]</td>
+<td style="text-align:center">当前运行脚本所在的服务器的主机名。如果脚本运行于虚拟主机中，该名称是由那个虚拟主机所设置的值决定。(如: <a href="http://www.chenxiaoma.com" target="_blank" rel="noopener">www.chenxiaoma.com</a>)</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SERVER_SOFTWARE’]</td>
+<td style="text-align:center">服务器标识字符串，在响应请求时的头信息中给出。 (如：Apache/2.2.24)</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SERVER_PROTOCOL’]</td>
+<td style="text-align:center">请求页面时通信协议的名称和版本。例如，”HTTP/1.0”。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘REQUEST_METHOD’]</td>
+<td style="text-align:center">访问页面使用的请求方法；例如，”GET”, “HEAD”，”POST”，”PUT”。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘REQUEST_TIME’]</td>
+<td style="text-align:center">请求开始时的时间戳。从 PHP 5.1.0 起可用。 (如：1377687496)</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘QUERY_STRING’]</td>
+<td style="text-align:center">query string（查询字符串），如果有的话，通过它进行页面访问。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘HTTP_ACCEPT’]</td>
+<td style="text-align:center">当前请求头中 Accept: 项的内容，如果存在的话。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘HTTP_ACCEPT_CHARSET’]</td>
+<td style="text-align:center">当前请求头中 Accept-Charset: 项的内容，如果存在的话。例如：”iso-8859-1,*,utf-8”。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘HTTP_REFERER’]</td>
+<td style="text-align:center">引导用户代理到当前页的前一页的地址（如果存在）。由 user agent 设置决定。并不是所有的用户代理都会设置该项，有的还提供了修改 HTTP_REFERER 的功能。简言之，该值并不可信.</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘HTTPS’]</td>
+<td style="text-align:center">如果脚本是通过 HTTPS 协议被访问，则被设为一个非空的值。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘REMOTE_HOST’]</td>
+<td style="text-align:center">浏览当前页面的用户的主机名。DNS 反向解析不依赖于用户的 REMOTE_ADDR。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘REMOTE_PORT’]</td>
+<td style="text-align:center">用户机器上连接到 Web 服务器所使用的端口号。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SCRIPT_FILENAME’]</td>
+<td style="text-align:center">当前执行脚本的绝对路径。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SERVER_ADMIN’]</td>
+<td style="text-align:center">该值指明了 Apache 服务器配置文件中的 SERVER_ADMIN 参数。如果脚本运行在一个虚拟主机上，则该值是那个虚拟主机的值。如：<a href="mailto:someone@chenxiaoma.com" target="_blank" rel="noopener">someone@chenxiaoma.com</a></td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SERVER_PORT’]</td>
+<td style="text-align:center">Web 服务器使用的端口。默认值为 “80”。如果使用 SSL 安全连接，则这个值为用户设置的 HTTP 端口。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SERVER_SIGNATURE’]</td>
+<td style="text-align:center">包含了服务器版本和虚拟主机名的字符串。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘PATH_TRANSLATED’]</td>
+<td style="text-align:center">当前脚本所在文件系统（非文档根目录）的基本路径。这是在服务器进行虚拟到真实路径的映像后的结果。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SCRIPT_NAME’]</td>
+<td style="text-align:center">包含当前脚本的路径。这在页面需要指向自己时非常有用。<strong>FILE</strong> 常量包含当前脚本(例如包含文件)的完整路径和文件名。</td>
+</tr>
+<tr>
+<td style="text-align:center">$_SERVER[‘SCRIPT_URI’]</td>
+<td style="text-align:center">URI 用来指定要访问的页面。例如 “/index.html”</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ol start="4">
+<li>PHP $_REQUEST 用于收集HTML表单提交的数据。小码写个使用超级全局变量 $_REQUEST来收集表单中input字段数据的例子<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"> </span><br><span class="line">&lt;form method=<span class="string">"post"</span> action=<span class="string">"&lt;?php echo $_SERVER['PHP_SELF'];?&gt;"</span>&gt;</span><br><span class="line">Name: &lt;input type=<span class="string">"text"</span> name=<span class="string">"fname"</span>&gt;</span><br><span class="line">&lt;input type=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"> </span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$name = $_REQUEST[<span class="string">'fname'</span>]; </span><br><span class="line"><span class="keyword">echo</span> $name; </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"> </span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>分析一下，这个表单action是$_SERVER[‘PHP_SELF’]就是把数据发送到自己这个页面来，然后在下面把表单中的name是fname的的input字段的信息获取并复制给PHP变量<br>$name，最后通过echo输出。这里涉及到了PHP表单中的知识，小码后面细讲。</li>
+</ul>
+<ol start="5">
+<li>PHP $_POST被广泛应用于收集表单数据，在HTML form标签的指定该属性：”method=”post”类同上，写个例子<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"> </span><br><span class="line">&lt;form method=<span class="string">"post"</span> action=<span class="string">"&lt;?php echo $_SERVER['PHP_SELF'];?&gt;"</span>&gt;</span><br><span class="line">Name: &lt;input type=<span class="string">"text"</span> name=<span class="string">"fname"</span>&gt;</span><br><span class="line">&lt;input type=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$name = $_POST[<span class="string">'fname'</span>]; </span><br><span class="line"><span class="keyword">echo</span> $name; </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>一样的套路，只不过把获取数据的method从REQUEST换成了POST</li>
+</ul>
+<ol start="6">
+<li>PHP $_GET被广泛应用于收集表单数据，在HTML form标签的指定该属性：”method=”get”。</li>
+</ol>
+<ul>
+<li>$_GET收集URL中发送的数据。的例子</li>
+<li><p>首先在index.html里码上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"get.php?name=user&amp;age=19"</span>&gt;</span>发送测试$GET<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在get.php里接收</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"name="</span> . $_GET[<span class="string">'name'</span>] .<span class="string">",age= "</span>.$_GET[<span class="string">'age'</span>];</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行结果:<br><strong>name=user,age=19</strong></p>
+</li>
+</ul>
+<hr>
+<h6 id="今天小码和大家学习了PHP数组排序和-PHP超级全局变量两块内容。今天是五一小长假最后一天了呢，同学们好好休息，明天大家又要干劲十足的工作了呢。拜拜"><a href="#今天小码和大家学习了PHP数组排序和-PHP超级全局变量两块内容。今天是五一小长假最后一天了呢，同学们好好休息，明天大家又要干劲十足的工作了呢。拜拜" class="headerlink" title="今天小码和大家学习了PHP数组排序和#### PHP超级全局变量两块内容。今天是五一小长假最后一天了呢，同学们好好休息，明天大家又要干劲十足的工作了呢。拜拜~~~~"></a>今天小码和大家学习了PHP数组排序和#### PHP超级全局变量两块内容。今天是五一小长假最后一天了呢，同学们好好休息，明天大家又要干劲十足的工作了呢。拜拜~~~~</h6>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/05/03/PHP教程02/" data-toggle="tooltip" data-placement="top" title="PHP教程02">下一篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share" data-wechat-qrcode-helper align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">标签云</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://www.sumoon.com" target="_blank">ACE theme</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/kinggozhang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 陈小码 2019 
+                    <br>
+                    Powered by <a href="http://www.hexo.io">Hexo</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Theme by <a href="https://github.com/kinggozhang/hexo-theme-ace">ACE</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=kinggozhang&repo=hexo-theme-ace&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+	<script src="/js/particles.js"></script>
+	<script src="/js/particles_config.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/2019/05/04/PHP教程03/index.html/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
