@@ -149,7 +149,7 @@
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/">主页</a>
+                        <a href="/">Homepage</a>
                     </li>
 
                     
@@ -371,7 +371,7 @@
 </li>
 </ol>
 <ul>
-<li>分析一下，这个表单action是$_SERVER[‘PHP_SELF’]就是把数据发送到自己这个页面来，然后在下面把表单中的name是fname的的input字段的信息获取并复制给PHP变量<br>$name，最后通过echo输出。这里涉及到了PHP表单中的知识，小码后面细讲。</li>
+<li>分析一下，这个表单action是$_SERVER[‘PHP_SELF’]就是把数据发送到自己这个页面来，然后在下面把表单中的name是fname的的input字段的信息获取并赋值给PHP变量<br>$name，最后通过echo输出。这里涉及到了PHP表单中的知识，小码后面细讲。</li>
 </ul>
 <ol start="5">
 <li>PHP $_POST被广泛应用于收集表单数据，在HTML form标签的指定该属性：”method=”post”类同上，写个例子<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"> </span><br><span class="line">&lt;form method=<span class="string">"post"</span> action=<span class="string">"&lt;?php echo $_SERVER['PHP_SELF'];?&gt;"</span>&gt;</span><br><span class="line">Name: &lt;input type=<span class="string">"text"</span> name=<span class="string">"fname"</span>&gt;</span><br><span class="line">&lt;input type=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$name = $_POST[<span class="string">'fname'</span>]; </span><br><span class="line"><span class="keyword">echo</span> $name; </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
@@ -404,7 +404,7 @@
                     
                     
                         <li class="next">
-                            <a href="/2019/05/03/PHP教程02/" data-toggle="tooltip" data-placement="top" title="PHP教程02">下一篇 &rarr;</a>
+                            <a href="/2019/05/03/PHP教程02/" data-toggle="tooltip" data-placement="top" title="PHP教程02">Next post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -451,7 +451,7 @@
                 
                 <section>
                     <!-- no hr -->
-                    <h5><a href="/tags/">标签云</a></h5>
+                    <h5><a href="/tags/">Tags</a></h5>
                     <div class="tags">
                        
                     </div>
