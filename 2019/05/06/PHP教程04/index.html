@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我自横刀向天笑，去留肝胆两昆仑">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          PHP教程04 - null
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/05/06/PHP教程04/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+	<link rel="stylesheet" href="/css/w3.css">
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+    }
+   .post-heading{
+    padding:20px;
+    }
+  .person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.7;
+  }
+  .person:hover {
+    border-color: #f1f1f1;
+  }
+ 
+    .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+    }
+
+    .carousel-caption h3 {
+      color: #fff !important;
+    }
+
+</style>
+
+<header id="headerid" class="w3-indigo intro-header" style="position:relative;">
+    <!-- Signature -->
+	
+        <div class="container">
+            <div class=" row">
+			
+			<canvas id="particles-js-canvas" style="position:absolute;z-index:1;top:0px;left:0px;" width="100%" height="50%"></canvas>
+			
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" style="z-index:2;">
+                
+                    <div class="post-heading" style="padding:40px">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>PHP教程04</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 陈小码 on
+                            2019-05-06
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+  
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">陈小码的小客栈</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Homepage</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><p>&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;&#9775;</p>
+<h4 id="PHP函数"><a href="#PHP函数" class="headerlink" title="PHP函数"></a>PHP函数</h4><ul>
+<li>有趣的万里挑一，可是他们的函数规则也千篇一律</li>
+<li>PHP函数的名称以字母或者下划线组成，不能以数字开头</li>
+<li><p>PHP函数的创建方式:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">// 要执行的代码</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用一个函数输出我的名字</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">writeName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"DECADE"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"My name is "</span>;</span><br><span class="line">writeName();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>运行结果:<br>My name is DECADE</strong></p>
+<ul>
+<li>PHP函数传参，把变量放在括号里，在函数名称后的括号里指定<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">writeName</span><span class="params">($name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">echo</span> $name . <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"My name is "</span>;</span><br><span class="line">writeName(<span class="string">"cxm"</span>); <span class="comment">//把字符串变量cxm作为参数传进函数</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"My sister's name is "</span>;</span><br><span class="line">writeName(<span class="string">"cmm"</span>); <span class="comment">//把字符串变量cmm作为参数传进函数</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"My brother's name is "</span>;</span><br><span class="line">writeName(<span class="string">"cgg"</span>); <span class="comment">//把字符串变量cgg作为参数传进函数</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>运行结果:<br>My name is cxm<br>My sister’s name is cmm<br>My brother’s name is cgg</strong></p>
+<ul>
+<li>传多个参数实例<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">writeName</span><span class="params">($family,$name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">echo</span> $family.<span class="string">" family "</span>.<span class="string">"$name . "</span>&lt;br&gt;<span class="string">";</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">echo "</span>My name is <span class="string">";</span></span><br><span class="line"><span class="string">writeName("</span>c<span class="string">","</span>cxm<span class="string">"); //把字符串变量c和cxm作为参数传进函数</span></span><br><span class="line"><span class="string">echo "</span>My sister<span class="string">'s name is ";</span></span><br><span class="line"><span class="string">writeName("c","cmm"); //把字符串变量c和cmm作为参数传进函数</span></span><br><span class="line"><span class="string">echo "My brother'</span>s name is <span class="string">";</span></span><br><span class="line"><span class="string">writeName("</span>c<span class="string">","</span>cgg<span class="string">"); //把字符串变量c和cgg作为参数传进函数</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>运行结果:<br>My name is c family cxm<br>My sister’s name is c family cmm<br>My brother’s name is c family cgg</strong></p>
+<ul>
+<li>PHP函数返回值 使用 return 语句返回一个值</li>
+<li>比如我们现在写个函数，传入两个数字，返回他们的和<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">($x,$y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">$sum=$x+$y;</span><br><span class="line"><span class="keyword">return</span> $sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"66 + 99 = "</span> . add(<span class="number">66</span>,<span class="number">99</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>运行结果:<br>66 + 99 = 165</strong></p>
+<h4 id="PHP魔术常量"><a href="#PHP魔术常量" class="headerlink" title="PHP魔术常量"></a>PHP魔术常量</h4><ul>
+<li>有八个魔术常量它们的值随着它们在代码中的位置改变而改变。</li>
+</ul>
+<ol>
+<li><strong>LINE</strong>文件中的当前行号<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"这是第 "</span>. <span class="keyword">__LINE__</span> .<span class="string">" 行"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>运行结果:<br>这是第2行</strong></p>
+<ol start="2">
+<li><strong>FILE</strong>文件的完整路径和文件名。如果用在被包含文件中，则返回被包含的文件名。<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"该文件位于 "</span>. <span class="keyword">__FILE__</span> ;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>运行结果:<br>该文件位于E:\wamp\www\chenhuakai\index.php</strong></p>
+<ol start="3">
+<li><strong>DIR</strong> 文件所在的目录。如果用在被包括文件中，则返回被包括的文件所在的目录。</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"该文件位于 "</span>. <span class="keyword">__DIR__</span> ;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>运行结果:<br>该文件位于E:\wamp\chenhuakai\test</strong></p>
+<ol start="4">
+<li><strong>FUNCTION</strong> 函数名称  PHP4中总是小写字母的,PHP5起区分大小写</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"函数名为："</span>. <span class="keyword">__FUNCTION__</span> ;</span><br><span class="line">&#125;</span><br><span class="line">myTest();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>运行结果:<br>函数名为：myTest</strong></p>
+<ol start="5">
+<li><strong>CLASS</strong> 类的名称 PHP4中总是小写字母的,PHP5起区分大小写</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myTest</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myPrint</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"类名为： "</span>. <span class="keyword">__CLASS__</span> . <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span>  <span class="string">"函数名为："</span>. <span class="keyword">__FUNCTION__</span> ;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">myTest();</span><br><span class="line">myTest()-&gt;myPrint();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>运行结果:<br>类名为：myTest<br>函数名为：myPrint</strong></p>
+<ol start="6">
+<li><strong>TRAIT</strong> Trait 的名字 如下例子 当前类中的方法会覆盖 trait 方法，而 trait 方法又覆盖了基类中的方法。<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Hello '</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">trait</span> SayWorld &#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">parent</span>::sayHello(); <span class="comment">//从基类继承的成员被插入的 SayWorld Trait 中的 MyHelloWorld 方法所覆盖。</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'World!'</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHelloWorld</span> <span class="keyword">extends</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line"><span class="keyword">use</span> <span class="title">SayWorld</span>;</span><br><span class="line">&#125; <span class="comment">//继承Base类</span></span><br><span class="line">$o = <span class="keyword">new</span> MyHelloWorld(); <span class="comment">//把MyHelloWorld类实例化</span></span><br><span class="line">$o-&gt;sayHello();<span class="comment">//调用该对象中的sayHello()</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>运行结果:<br>Hello World!</strong></p>
+<ol start="7">
+<li><p><strong>METHOD</strong>  类的方法名 区分大小写</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">echo</span>  <span class="string">"函数名为："</span> . <span class="keyword">__METHOD__</span> ;</span><br><span class="line">&#125;</span><br><span class="line">test();<span class="comment">// 输出 函数名为：myTest</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>NAMESPACE</strong> 当前命名空间的名称 区分大小写</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">myProject</span>;</span><br><span class="line"> <span class="keyword">echo</span> <span class="string">"命名空间为："</span>. <span class="keyword">__NAMESPACE__</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>运行结果:<br>命名空间为： myProject</strong></p>
+<blockquote>
+<p>trait 怎样在一个类中使用多个trait， 通过逗号分隔，在 use 声明列出多个 </p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">trait</span> Hello &#123;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Hello '</span>;    </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">trait</span> World &#123;    </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayWorld</span><span class="params">()</span> </span>&#123;     </span><br><span class="line"><span class="keyword">echo</span> <span class="string">'World'</span>;  </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHelloWorld</span> </span>&#123; </span><br><span class="line"><span class="keyword">use</span> <span class="title">Hello</span>, <span class="title">World</span>;  </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayExclamationMark</span><span class="params">()</span> </span>&#123;   </span><br><span class="line"><span class="keyword">echo</span> <span class="string">'!'</span>; </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">$o = <span class="keyword">new</span> MyHelloWorld();</span><br><span class="line">$o-&gt;sayHello();</span><br><span class="line">$o-&gt;sayWorld();</span><br><span class="line">$o-&gt;sayExclamationMark();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="今天小码讲了两个非常重要的内容-PHP函数-和-PHP魔术变量。-函数在PHP里肯定很重要，对任何一个语言来说都是的。PHP魔术变量会起到画龙点睛的作用。这两天小码可能要准备一个比赛，去学习一下算法。小码是崇尚开发的，但为了一纸证书还是去苟一把。小码认为，真的靠算法吃饭的基本上没多少，像小码所在的学校，小码认为，TMD基本0个人最后靠算法吃饭。大家越早接触开发越好。但如果为了成绩和经验，想多见识一下，去学习一下算法还是有好处的。如果说最后不靠算法吃饭，还天天做题做题，别扯什么锻炼思维逻辑，我们应该锻炼开发逻辑和业务逻辑，最后不靠算法吃饭还天天疯狂做题的，就是蠢蛋。小码这次为了成绩，要违逆一下自己内心了呢。拜拜"><a href="#今天小码讲了两个非常重要的内容-PHP函数-和-PHP魔术变量。-函数在PHP里肯定很重要，对任何一个语言来说都是的。PHP魔术变量会起到画龙点睛的作用。这两天小码可能要准备一个比赛，去学习一下算法。小码是崇尚开发的，但为了一纸证书还是去苟一把。小码认为，真的靠算法吃饭的基本上没多少，像小码所在的学校，小码认为，TMD基本0个人最后靠算法吃饭。大家越早接触开发越好。但如果为了成绩和经验，想多见识一下，去学习一下算法还是有好处的。如果说最后不靠算法吃饭，还天天做题做题，别扯什么锻炼思维逻辑，我们应该锻炼开发逻辑和业务逻辑，最后不靠算法吃饭还天天疯狂做题的，就是蠢蛋。小码这次为了成绩，要违逆一下自己内心了呢。拜拜" class="headerlink" title="今天小码讲了两个非常重要的内容 PHP函数 和  PHP魔术变量。 函数在PHP里肯定很重要，对任何一个语言来说都是的。PHP魔术变量会起到画龙点睛的作用。这两天小码可能要准备一个比赛，去学习一下算法。小码是崇尚开发的，但为了一纸证书还是去苟一把。小码认为，真的靠算法吃饭的基本上没多少，像小码所在的学校，小码认为，TMD基本0个人最后靠算法吃饭。大家越早接触开发越好。但如果为了成绩和经验，想多见识一下，去学习一下算法还是有好处的。如果说最后不靠算法吃饭，还天天做题做题，别扯什么锻炼思维逻辑，我们应该锻炼开发逻辑和业务逻辑，最后不靠算法吃饭还天天疯狂做题的，就是蠢蛋。小码这次为了成绩，要违逆一下自己内心了呢。拜拜~~"></a>今天小码讲了两个非常重要的内容 PHP函数 和  PHP魔术变量。 函数在PHP里肯定很重要，对任何一个语言来说都是的。PHP魔术变量会起到画龙点睛的作用。这两天小码可能要准备一个比赛，去学习一下算法。小码是崇尚开发的，但为了一纸证书还是去苟一把。小码认为，真的靠算法吃饭的基本上没多少，像小码所在的学校，小码认为，TMD基本0个人最后靠算法吃饭。大家越早接触开发越好。但如果为了成绩和经验，想多见识一下，去学习一下算法还是有好处的。如果说最后不靠算法吃饭，还天天做题做题，别扯什么锻炼思维逻辑，我们应该锻炼开发逻辑和业务逻辑，最后不靠算法吃饭还天天疯狂做题的，就是蠢蛋。小码这次为了成绩，要违逆一下自己内心了呢。拜拜~~</h6>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/05/04/PHP教程03/" data-toggle="tooltip" data-placement="top" title="PHP教程03">Next post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share" data-wechat-qrcode-helper align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">Tags</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://www.sumoon.com" target="_blank">ACE theme</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/kinggozhang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 陈小码 2019 
+                    <br>
+                    Powered by <a href="http://www.hexo.io">Hexo</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Theme by <a href="https://github.com/kinggozhang/hexo-theme-ace">ACE</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=kinggozhang&repo=hexo-theme-ace&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+	<script src="/js/particles.js"></script>
+	<script src="/js/particles_config.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/2019/05/06/PHP教程04/index.html/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
